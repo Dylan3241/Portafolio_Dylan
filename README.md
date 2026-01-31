@@ -2,6 +2,8 @@
 
 Portafolio personal de programación.
 
+Desarrollador backend junior (Python / Java).
+
 Actualmente enfocado en Python y Java.
 
 ## Contenido

@@ -17,6 +17,7 @@ python/discord_bot/
 Incluye:
 - Moderation Bot
 - Roleplay Bot
+- Aurum Bank
 
 ### Java
 Trabajos académicos realizados en UTU.

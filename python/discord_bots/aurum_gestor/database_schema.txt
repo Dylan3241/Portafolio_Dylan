@@ -1,0 +1,49 @@
+-- ESTRUCTURA DE BASE DE DATOS: AURUM BANK (Sistema Financiero)
+
+-- 1. Gestión de Usuarios (cliente.py / bienvenida.py)
+CREATE TABLE clientes (
+    id_discord TEXT PRIMARY KEY,    -- ID único del usuario en Discord
+    nombre_usuario TEXT,            -- Nombre para personalización
+    saldo_cuenta REAL DEFAULT 0,    -- Dinero disponible
+    fecha_registro TEXT             -- Cuándo se unió a Aurum Bank
+);
+
+-- 2. Sistema de Créditos (prestamos.py / pagar_prestamo.py)
+CREATE TABLE prestamos (
+    id_prestamo INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario TEXT,
+    monto_inicial REAL,
+    monto_restante REAL,
+    tasa_interes REAL,
+    ultima_hora TEXT,               -- Fecha/hora del último movimiento (Corrección técnica)
+    estado TEXT DEFAULT 'activo',   -- 'activo', 'pagado' o 'vencido'
+    FOREIGN KEY(id_usuario) REFERENCES clientes(id_discord)
+);
+
+-- 3. Control de Deudas (morosos.py)
+CREATE TABLE morosos (
+    id_moroso INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario TEXT,
+    dias_atraso INTEGER DEFAULT 0,
+    multa_acumulada REAL DEFAULT 0,
+    FOREIGN KEY(id_usuario) REFERENCES clientes(id_discord)
+);
+
+-- 4. Soporte y Atención (tickets.py)
+CREATE TABLE tickets (
+    id_ticket INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario TEXT,
+    canal_id TEXT,                  -- ID del canal de Discord creado para el ticket
+    asunto TEXT,
+    estado TEXT DEFAULT 'abierto',  -- 'abierto' o 'cerrado'
+    FOREIGN KEY(id_usuario) REFERENCES clientes(id_discord)
+);
+
+-- 5. Estadísticas del Sistema (dashboard.py)
+-- Esta tabla ayuda a generar los reportes globales de la empresa
+CREATE TABLE estadisticas_globales (
+    id_registro INTEGER PRIMARY KEY AUTOINCREMENT,
+    total_prestado REAL,
+    total_usuarios INTEGER,
+    fecha_reporte TEXT
+);
